@@ -1,0 +1,306 @@
+/* Fonts: Poppins + Pacifico */
+:root {
+  --bg: #fff5fb;
+  --primary: #ff64b4;
+  --primary-dark: #ff3f9f;
+  --accent: #7d77ff;
+  --yellow: #ffd166;
+  --text: #3a2e39;
+  --card: #ffffffcc;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: 'Poppins', system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+  color: var(--text);
+  background: var(--bg);
+  overflow-x: hidden;
+}
+
+.background {
+  position: fixed;
+  inset: 0;
+  background: radial-gradient(circle at 20% 10%, #ffe0ef 0%, transparent 40%),
+              radial-gradient(circle at 80% 30%, #e6e2ff 0%, transparent 45%),
+              radial-gradient(circle at 50% 90%, #fff1c7 0%, transparent 40%);
+  pointer-events: none;
+  z-index: -2;
+}
+
+/* Floating hearts */
+.background::before,
+.background::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg width='120' height='120' xmlns='http://www.w3.org/2000/svg'%3E%3Ctext x='0' y='90' font-size='90'%3E%F0%9F%92%95%3C/text%3E%3C/svg%3E");
+  opacity: 0.07;
+  animation: float 18s linear infinite;
+}
+.background::after {
+  animation-duration: 26s;
+  animation-direction: reverse;
+  opacity: 0.05;
+}
+
+@keyframes float {
+  from { background-position: 0 0, 0 0; }
+  to   { background-position: 0 1000px, 1000px 0; }
+}
+
+canvas#confettiCanvas {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 5;
+}
+
+.hero {
+  text-align: center;
+  padding: 80px 20px 40px;
+}
+
+.title {
+  font-family: 'Pacifico', cursive;
+  font-size: clamp(36px, 6vw, 72px);
+  margin: 0 0 12px;
+  color: var(--primary);
+  text-shadow: 0 6px 20px #ff64b42e, 0 1px 0 #fff;
+}
+
+.subtitle {
+  margin: 0 auto 22px;
+  font-weight: 400;
+  max-width: 720px;
+}
+
+.btn {
+  border: 0;
+  background: linear-gradient(135deg, var(--primary), var(--accent));
+  color: white;
+  padding: 12px 22px;
+  font-weight: 700;
+  border-radius: 999px;
+  box-shadow: 0 10px 20px #ff64b444;
+  cursor: pointer;
+  transform: translateY(0);
+  transition: transform .15s ease, box-shadow .2s ease;
+}
+.btn:hover { transform: translateY(-1px); box-shadow: 0 14px 24px #ff64b466; }
+.btn:active { transform: translateY(1px); }
+
+.gallery {
+  padding: 20px;
+}
+.gallery h2 {
+  text-align: center;
+  margin: 0 0 16px;
+}
+.images {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 16px;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+.images figure {
+  margin: 0;
+  padding: 10px;
+  background: var(--card);
+  backdrop-filter: blur(10px);
+  border-radius: 18px;
+  box-shadow: 0 10px 24px rgba(0,0,0,.06);
+  transform: rotate(var(--r, 0deg));
+  animation: bob 6s ease-in-out infinite;
+}
+.images figure:nth-child(1) { --r: -1.5deg; animation-delay: .2s; }
+.images figure:nth-child(2) { --r:  1.2deg; animation-delay: .6s; }
+.images figure:nth-child(3) { --r: -0.8deg; animation-delay: .9s; }
+
+@keyframes bob {
+  0%,100% { transform: translateY(0) rotate(var(--r, 0deg)); }
+  50%     { transform: translateY(-6px) rotate(var(--r, 0deg)); }
+}
+
+.images img {
+  width: 100%;
+  height: 280px;
+  object-fit: cover;
+  border-radius: 12px;
+}
+
+.message {
+  max-width: 900px;
+  margin: 24px auto 60px;
+  padding: 22px 18px;
+  background: var(--card);
+  border-radius: 18px;
+  box-shadow: 0 10px 24px rgba(0,0,0,.06);
+}
+.message h2 { text-align: center; margin-top: 0; }
+.message p { margin: 0; line-height: 1.7; text-align: center; }
+
+.footer {
+  text-align: center;
+  padding: 26px 10px 60px;
+  color: #7a6d77;
+}
+
+/* Floating balloons */
+.balloon {
+  position: absolute;
+  bottom: -140px;
+  width: 70px;
+  height: 90px;
+  border-radius: 50% 50% 45% 55% / 60% 60% 40% 40%;
+  background: var(--primary);
+  box-shadow: inset -10px -14px 20px #00000022;
+  animation: rise 12s linear infinite;
+  z-index: 1;
+}
+.balloon::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  bottom: -30px;
+  width: 2px;
+  height: 36px;
+  background: #e8d3dc;
+}
+.balloon:nth-child(1) { left: 6%;  animation-delay: 0s; background: #ff64b4; }
+.balloon:nth-child(2) { left: 22%; animation-delay: 2s; background: #7d77ff; }
+.balloon:nth-child(3) { left: 48%; animation-delay: 4s; background: #ffd166; }
+.balloon:nth-child(4) { left: 72%; animation-delay: 6s; background: #7dd3fc; }
+.balloon:nth-child(5) { left: 88%; animation-delay: 8s; background: #34d399; }
+
+@keyframes rise {
+  0% { transform: translateY(0) translateX(0); opacity: .9; }
+  50% { transform: translateY(-55vh) translateX(15px); }
+  100% { transform: translateY(-110vh) translateX(-10px); opacity: .7; }
+}
+
+/* Add these styles to your existing CSS file */
+
+.gallery-subtitle {
+    text-align: center;
+    margin-bottom: 30px;
+    color: var(--primary);
+    font-style: italic;
+    font-size: 1.1rem;
+}
+
+/* Flip Card Styles */
+.flip-card {
+    background-color: transparent;
+    width: 100%;
+    height: 300px;
+    perspective: 1000px;
+    cursor: pointer;
+}
+
+.flip-card-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    transition: transform 0.8s;
+    transform-style: preserve-3d;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    border-radius: 18px;
+}
+
+.flip-card.flipped .flip-card-inner {
+    transform: rotateY(180deg);
+}
+
+.flip-card-front, .flip-card-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    border-radius: 18px;
+    overflow: hidden;
+}
+
+.flip-card-front {
+    background-color: var(--card);
+    backdrop-filter: blur(10px);
+}
+
+.flip-card-front img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 18px;
+}
+
+.flip-card-back {
+    background: linear-gradient(135deg, var(--primary), var(--accent));
+    color: white;
+    transform: rotateY(180deg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+.message-content {
+    text-align: center;
+}
+
+.message-content h3 {
+    margin: 0 0 15px 0;
+    font-family: 'Pacifico', cursive;
+    font-size: 1.5rem;
+}
+
+.message-content p {
+    margin: 0;
+    line-height: 1.6;
+    font-size: 0.95rem;
+}
+
+/* Enhanced Message Section */
+.letter-content {
+    max-width: 800px;
+    margin: 0 auto;
+    line-height: 1.8;
+    font-size: 1.1rem;
+}
+
+.letter-content p {
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+.signature {
+    text-align: right;
+    font-style: italic;
+    margin-top: 30px;
+    color: var(--primary);
+    font-weight: 600;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .flip-card {
+        height: 250px;
+    }
+    
+    .message-content h3 {
+        font-size: 1.3rem;
+    }
+    
+    .message-content p {
+        font-size: 0.9rem;
+    }
+}
+
+
